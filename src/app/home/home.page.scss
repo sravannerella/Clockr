@@ -1,1 +1,15 @@
+.flex-card{
+    height: 100vh;
+    flex-direction: column;
+    color: #fff;
+}
 
+.customBullets{
+    --bullet-background: #000;
+    --bullet-background-active: #fff;
+}
+
+.shadow{
+    border-radius: 50px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}

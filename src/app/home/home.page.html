@@ -1,12 +1,17 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content padding>
-  The world is your oyster.
-  <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs">docs</a> will be your guide.</p>
+<ion-content>
+  <ion-slides pager="true" [options]="sliderOptions" (ionSlideDrag)="slideMoved()" class="customBullets">
+      <ion-slide zoom="false" [style.background]='slide.color' class="flex-card" *ngFor="let slide of sliders;let i = index">
+          <img [@bounce]='state' [src]="slide.img" class="img-150" [alt]="slide.title" (@bounce.done)="animationDone($event)">
+          <div [@bounce]='state' margin-top padding>
+              <h1>{{slide.title}}</h1>
+              <p>{{slide.subtitle}}</p>
+          </div>
+          <div [hidden]="i !== sliders.length - 1">
+              <ion-button color="light" class="shadow" (click)="goToLogin()" shape="round" fill="outline">
+                  <ion-icon slot="start" name="log-in"></ion-icon>
+                  Get Started
+              </ion-button>
+          </div>
+      </ion-slide>
+  </ion-slides>
 </ion-content>
