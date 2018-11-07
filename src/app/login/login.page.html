@@ -1,0 +1,59 @@
+<!-- <ion-content class="middle">
+	<ion-card>
+		<ion-card-header>
+			<h1 text-center>Clckr</h1>
+			<ion-card-title text-center>Login</ion-card-title>
+		</ion-card-header>
+		<ion-card-content>
+			<ion-list>
+
+				<ion-item>
+					<ion-label position="floating">Email</ion-label>
+					<ion-input required="true" type="email"></ion-input>
+				</ion-item>
+				
+				<ion-item>
+					<ion-label position="floating">Password</ion-label>
+					<ion-input required="true" type="password"></ion-input>
+				</ion-item>
+
+				<ion-button color="primary" type="submit" fill="solid" float-right padding>Submit</ion-button>
+
+			</ion-list>
+		</ion-card-content>
+	</ion-card>
+</ion-content> -->
+
+<ion-content padding class="">
+	<ion-title text-center padding-horizontal class="font-weight-bold font-30 pt-3" color="primary">Clockr</ion-title>
+	<p text-center>Welcome</p>
+
+	<ion-card mode="ios">
+		<ion-card-content>
+			<form [formGroup]="loginForm">
+				<ion-list>
+					<ion-item>
+						<ion-label position="floating">Email</ion-label>
+						<ion-input required="true" type="email" formControlName="email"></ion-input>
+					</ion-item>
+	
+					<ion-item>
+						<ion-label position="floating">Password</ion-label>
+						<ion-input required="true" type="password" formControlName="password"></ion-input>
+					</ion-item>
+				</ion-list>
+	
+				<div class="w-100 mt-2" text-center>
+					<ion-button mode="md" shape="round" color="primary" size="default" text-uppercase>Login</ion-button>
+				</div>
+				
+			</form>
+		</ion-card-content>
+	</ion-card>
+
+	<div text-center padding>
+		<ion-button shape="round" color="dark" fill="clear">Create an Account</ion-button>
+		<ion-button shape="round" color="dark" fill="clear">Forgot Password</ion-button>
+	</div>
+
+</ion-content>

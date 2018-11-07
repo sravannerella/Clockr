@@ -1,5 +1,7 @@
 {
   "name": "Clockr",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

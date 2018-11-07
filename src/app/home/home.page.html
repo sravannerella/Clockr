@@ -1,13 +1,13 @@
 <ion-content>
-  <ion-slides pager="true" [options]="sliderOptions" (ionSlideDrag)="slideMoved()" class="customBullets">
+  <ion-slides pager="true" [options]="sliderOptions" (ionSlidesDidLoad)="slidesInit()" (ionSlideDrag)="slideMoved()" class="customBullets">
       <ion-slide zoom="false" [style.background]='slide.color' class="flex-card" *ngFor="let slide of sliders;let i = index">
-          <img [@bounce]='state' [src]="slide.img" class="img-150" [alt]="slide.title" (@bounce.done)="animationDone($event)">
+          <img [@jump]='jumpState' style="opacity: 0;" [@bounce]='state' [src]="slide.img" class="img-150" [alt]="slide.title" (@jump.done)="jumpDone($event)" (@bounce.done)="animationDone($event)">
           <div [@bounce]='state' margin-top padding>
               <h1>{{slide.title}}</h1>
               <p>{{slide.subtitle}}</p>
           </div>
           <div [hidden]="i !== sliders.length - 1">
-              <ion-button color="light" class="shadow" (click)="goToLogin()" shape="round" fill="outline">
+              <ion-button color="light" class="shadow" router-direction="forward" href="/login" shape="round" fill="outline">
                   <ion-icon slot="start" name="log-in"></ion-icon>
                   Get Started
               </ion-button>

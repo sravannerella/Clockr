@@ -15,5 +15,42 @@
     .img-#{$val}{
         width: #{$val}px !important;
         height: #{$val}px !important;
-    }
+	}
+	.font-#{$i}{
+		font-size: #{$i}px;
+	}
+}
+
+.h-100{
+	height: 100%;
+}
+
+.w-100{
+	width: 100%;
+}
+
+@for $i from 0 to 11 {
+	.p-#{$i}{
+		padding: #{$i}rem;
+	}
+	.m-#{$i}{
+		margin: #{$i}rem;
+	}
+	.pt-#{$i}{
+		padding-top: #{$i}rem;
+	}
+	.mt-#{$i}{
+		margin-top: #{$i}rem;
+	}
+	.mb-#{$i}{
+		margin-top: #{$i}rem;
+	}
+}
+
+.font-weight-bold{
+	font-weight: bold;
+}
+
+.bg-light{
+	background: #ffffff;
 }

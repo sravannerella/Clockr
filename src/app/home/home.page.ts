@@ -1,89 +1,127 @@
 import { Component, ViewChild } from '@angular/core';
-import { trigger, transition, state, animate, keyframes, style} from '@angular/animations';
+import { trigger, transition, state, animate, keyframes, style } from '@angular/animations';
 import { Slides } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss'],
-  animations: [
-    trigger('bounce', [
-      state('*', style({
-        transform: 'translateX(0)'
-      })),
-      transition('* => rightSwipe', animate('700ms ease-out', keyframes([
-        style({
-          transform: 'translateX(0)', 
-          offset: 0
-        }),
-        style({
-          transform: 'translateX(-40px)', 
-          offset: .4
-        }),
-        style({
-          transform: 'translateX(0)', 
-          offset: 1
-        }),
-      ]))),
-      transition('* => leftSwipe', animate('700ms ease-out', keyframes([
-        style({
-          transform: 'translateX(0)',
-          offset: 0
-        }),
-        style({
-          transform: 'translateX(40px)',
-          offset: 0.4
-        }),
-        style({
-          transform: 'translateX(0)',
-          offset: 1
-        })
-      ])))
-    ])
-  ]
+	selector: 'app-home',
+	templateUrl: 'home.page.html',
+	styleUrls: ['home.page.scss'],
+	animations: [
+		trigger('bounce', [
+			state('*', style({
+				transform: 'translateX(0)'
+			})),
+			transition('* => rightSwipe', animate('700ms ease-out', keyframes([
+				style({
+					transform: 'translateX(0)',
+					offset: 0
+				}),
+				style({
+					transform: 'translateX(-40px)',
+					offset: .4
+				}),
+				style({
+					transform: 'translateX(0)',
+					offset: 1
+				}),
+			]))),
+			transition('* => leftSwipe', animate('700ms ease-out', keyframes([
+				style({
+					transform: 'translateX(0)',
+					offset: 0
+				}),
+				style({
+					transform: 'translateX(40px)',
+					offset: 0.4
+				}),
+				style({
+					transform: 'translateX(0)',
+					offset: 1
+				})
+			])))
+		]),
+		trigger('jump', [
+			state('x', style({
+				transform: 'translateY(0)',
+				opacity: 0
+			})),
+			state('done', style({
+				transform: 'translateY(0)',
+				opacity: 1
+			})),
+			transition('* => up', animate('1000ms ease-out', keyframes([
+				style({
+					transform: 'translateY(0)',
+					opacity: 0,
+					offset: 0
+				}),
+				style({
+					transform: 'translateY(-80px)',
+					opacity: 0,
+					offset: .4
+				}),
+				style({
+					transform: 'translateY(0)',
+					opacity: 1,
+					offset: 1
+				})
+			])))
+		])
+	]
 })
+
 export class HomePage {
 
-  sliderOptions = {
-    effect: 'flip'
-  }
+	constructor(private router: Router) {}
 
-  state : string = 'x';
+	sliderOptions = {
+		effect: 'flip'
+	};
 
-  @ViewChild(Slides) slides: Slides;
+	state = 'x';
+	jumpState = 'x';
 
-  sliders = [{
-    title: 'Location',
-    subtitle: 'You will be clocked in with GPS Coordinates',
-    color: '#4F6BDF',
-    img: './../../assets/img/location.png'
-  }, {
-    title: 'Fence',
-    subtitle: 'Geo Coordinates based Fence to track clock in and out',
-    color: '#ab47bc',
-    img: './../../assets/img/fence.png'
-  }, {
-    title: 'Beacons',
-    subtitle: 'Micro Location used to clock in and out',
-    color: '#ef5350',
-    img: './../../assets/img/beacon.png'
-  }]
+	@ViewChild(Slides) slides: Slides;
 
+	sliders = [{
+		title: 'Location',
+		subtitle: 'You will be clocked in with GPS Coordinates',
+		color: '#4F6BDF',
+		img: './../../assets/img/location.png'
+	}, {
+		title: 'Fence',
+		subtitle: 'Geo Coordinates based Fence to track clock in and out',
+		color: '#fbc02d',
+		img: './../../assets/img/fence.png'
+	}, {
+		title: 'Beacons',
+		subtitle: 'Micro Location used to clock in and out',
+		color: '#ef5350',
+		img: './../../assets/img/beacon.png'
+	}];
 
-  slideMoved() {
-    if (this.slides.getActiveIndex() >= this.slides.getPreviousIndex()) {
-        this.state = 'rightSwipe';
-    } else {
-        this.state = 'leftSwipe';
-    }
-  }
+	slidesInit() {
+		this.jumpState = 'up';
+	}
 
-  animationDone(){
-    this.state = 'x';
-  }
+	slideMoved() {
+		if (this.slides.getActiveIndex() >= this.slides.getPreviousIndex()) {
+			this.state = 'rightSwipe';
+			setTimeout( () => {
+				this.jumpState = 'up';
+			}, 700);
+		} else {
+			this.state = 'leftSwipe';
+		}
+	}
 
-  goToLogin(){
-      console.log("Going to Login");
-  }
+	animationDone() {
+		this.state = 'x';
+	}
+
+	jumpDone() {
+		this.jumpState = 'done';
+	}
 
 }
