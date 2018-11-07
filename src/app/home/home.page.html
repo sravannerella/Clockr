@@ -1,7 +1,7 @@
 <ion-content>
   <ion-slides pager="true" [options]="sliderOptions" (ionSlideDrag)="slideMoved()" class="customBullets">
       <ion-slide zoom="false" [style.background]='slide.color' class="flex-card" *ngFor="let slide of sliders;let i = index">
-          <img [@bounce]='state' [src]="slide.img" class="img-150" [alt]="slide.title" (@bounce.done)="animationDone($event)">
+          <img [@jump]='jumpState' [@bounce]='state' [src]="slide.img" class="img-150" [alt]="slide.title" (@bounce.done)="animationDone($event)">
           <div [@bounce]='state' margin-top padding>
               <h1>{{slide.title}}</h1>
               <p>{{slide.subtitle}}</p>

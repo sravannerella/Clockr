@@ -1,6 +1,7 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { trigger, transition, state, animate, keyframes, style} from '@angular/animations';
 import { Slides } from '@ionic/angular';
+import { extend } from 'webdriver-js-extender';
 
 @Component({
   selector: 'app-home',
@@ -39,16 +40,36 @@ import { Slides } from '@ionic/angular';
           offset: 1
         })
       ])))
+    ]),
+    trigger('jump', [
+        state('*', style({
+          transform: 'translateY(0)'
+        })),
+        transition('* => up', animate('700ms ease-in', keyframes([
+          style({
+            transform: 'translateY(-60px)',
+            offset: 0
+          }),
+          style({
+            transform: 'translateY(0)',
+            offset: 0.4
+          }),
+          style({
+            transform: 'translateY(0)',
+            offset: 1
+          })
+        ])))
     ])
   ]
 })
-export class HomePage {
+export class HomePage implements OnInit {
 
   sliderOptions = {
     effect: 'flip'
   }
 
   state : string = 'x';
+  jumpState = 'x';
 
   @ViewChild(Slides) slides: Slides;
 
@@ -67,8 +88,14 @@ export class HomePage {
     subtitle: 'Micro Location used to clock in and out',
     color: '#ef5350',
     img: './../../assets/img/beacon.png'
-  }]
+  }];
 
+  ngOnInit() {
+    console.log("LOADED");
+    setInterval(()=> {
+      this.jumpState = 'up';
+    }, 1500);
+  }
 
   slideMoved() {
     if (this.slides.getActiveIndex() >= this.slides.getPreviousIndex()) {
